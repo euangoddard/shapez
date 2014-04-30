@@ -16,7 +16,7 @@ define([], function () {
 
         this.hasDeviceMotion = 'ondevicemotion' in window;
 
-        this.threshold = 15;
+        this.threshold = 30;
 
         this.lastTime = new Date();
 
@@ -24,12 +24,12 @@ define([], function () {
         this.lastY = null;
         this.lastZ = null;
 
-        if (typeof document.CustomEvent === "function") {
+        if (typeof document.CustomEvent === 'function') {
             this.event = new document.CustomEvent('shake', {
                 bubbles: true,
                 cancelable: true
             });
-        } else if (typeof document.createEvent === "function") {
+        } else if (typeof document.createEvent === 'function') {
             this.event = document.createEvent('Event');
             this.event.initEvent('shake', true, true);
         } else { 
@@ -46,12 +46,16 @@ define([], function () {
 
     Shake.prototype.start = function () {
         this.reset();
-        if (this.hasDeviceMotion) { window.addEventListener('devicemotion', this, false); }
+        if (this.hasDeviceMotion) { 
+            window.addEventListener('devicemotion', this, false);
+        }
     };
 
     Shake.prototype.stop = function () {
 
-        if (this.hasDeviceMotion) { window.removeEventListener('devicemotion', this, false); }
+        if (this.hasDeviceMotion) {
+            window.removeEventListener('devicemotion', this, false);
+        }
         this.reset();
     };
 
@@ -77,7 +81,6 @@ define([], function () {
         deltaZ = Math.abs(this.lastZ - current.z);
 
         if (((deltaX > this.threshold) && (deltaY > this.threshold)) || ((deltaX > this.threshold) && (deltaZ > this.threshold)) || ((deltaY > this.threshold) && (deltaZ > this.threshold))) {
-            //calculate time in milliseconds since last shake registered
             currentTime = new Date();
             timeDifference = currentTime.getTime() - this.lastTime.getTime();
 
@@ -93,7 +96,6 @@ define([], function () {
 
     };
 
-    //event handler
     Shake.prototype.handleEvent = function (e) {
 
         if (typeof (this[e.type]) === 'function') {
