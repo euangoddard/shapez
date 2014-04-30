@@ -10,17 +10,20 @@ define([], function () {
         this.colour = colour;
         this.x = null;
         this.y = null;
+
         this.radius = RADIUS.MIN;
+        this.angle = 0;
     };;
 
     PolyShape.prototype = {
         move: function (x, y) {
             if (this.x && this.y) {
-                var delta_r;
                 var delta_x = this.x - x;
                 var delta_y = this.y - y;
-                delta_r = Math.sqrt(delta_x * delta_x + delta_y * delta_y);
+                var delta_r = Math.sqrt(delta_x * delta_x + delta_y * delta_y);
+
                 this.radius = Math.min(Math.max(delta_r, RADIUS.MIN), RADIUS.MAX);
+                this.angle = Math.atan(delta_x / delta_y);
             }
 
             this.x = x;
@@ -53,7 +56,7 @@ define([], function () {
     Polygon.prototype._draw_polygon_points = function () {
         var x, y, angle;
         for (var i = 0; i < this.vertices; i+=1) {
-            angle = (2 * Math.PI * i / this.vertices);
+            angle = this.angle + (2 * Math.PI * i / this.vertices);
             x = this.x + (this.radius * Math.cos(angle));
             y = this.y + (this.radius * Math.sin(angle));
             
@@ -86,7 +89,7 @@ define([], function () {
     Polystar.prototype._draw_polystar_points = function () {
         var x, y, radius, angle;
         for (var i = 0; i < this.vertices; i+=1) {
-            angle = 2 * Math.PI * i / this.vertices;
+            angle = this.angle + (2 * Math.PI * i / this.vertices);
             if (i % 2) {
 
                 radius = 0.6 * this.radius;
