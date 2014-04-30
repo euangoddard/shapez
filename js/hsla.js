@@ -1,5 +1,7 @@
 define([], function () {
 
+    'use strict';
+
     var convert_to_percent = function (amount, limit) {
         return amount / limit;
     }
