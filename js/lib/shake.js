@@ -16,7 +16,7 @@ define([], function () {
 
         this.hasDeviceMotion = 'ondevicemotion' in window;
 
-        this.threshold = 30;
+        this.threshold = 20;
 
         this.lastTime = new Date();
 
