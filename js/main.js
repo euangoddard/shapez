@@ -67,6 +67,13 @@ define(
         });
     };
 
+    window.addEventListener('deviceorientation', function (event) {
+        if (event.beta > 170 || event.beta < -170) {
+            dialogs.show_menu_dialog();
+        }
+    }, false);
+
+
     var menu_buttons = document.querySelectorAll('#menu button');
     utils.iter(menu_buttons, function (button) {
         var data_action = button.getAttribute('data-action');
