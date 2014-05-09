@@ -1,6 +1,7 @@
 define(
-    ['animation', 'hsla', 'shapes', 'dialogs', 'utils', 'lib/shake', 'lib/domReady!'],
-    function (animation, hsla, shapes, dialogs, utils) {
+    ['animation', 'hsla', 'shapes', 'dialogs', 'utils', 'lib/FileSaver', 'lib/canvas-toBlob', 'lib/shake', 'lib/domReady!'],
+    function (animation, hsla, shapes, dialogs, utils, save_as) {
+
     'use strict';
 
     var canvas = document.querySelector('canvas');
@@ -60,28 +61,29 @@ define(
     canvas.addEventListener('touchleave', handle_touch_end, false);
     canvas.addEventListener('touchmove', handle_touch_move, false);
 
-    var show_capture_dialog = function () {
-        var download_link = document.querySelector('#menu a');
-        var data_url = canvas.toDataURL('image/png');
-        download_link.setAttribute('href', data_url);
-
-        dialogs.show_menu_dialog();
+    var save_canvas = function () {
+        canvas.toBlob(function (blob) {
+            save_as(blob, 'Shapez.png');
+        });
     };
 
     var menu_buttons = document.querySelectorAll('#menu button');
     utils.iter(menu_buttons, function (button) {
-        if (button.getAttribute('data-action') === 'clear') {
+        var data_action = button.getAttribute('data-action');
+        if (data_action === 'clear') {
             button.addEventListener('click', function () {
                 size_canvas();
                 dialogs.hide_menu_dialog();
             }, false);
+        } else if (data_action === 'save') {
+            button.addEventListener('click', save_canvas, false);
         }
     });
 
 
 
-    window.addEventListener('shake', show_capture_dialog, false);
-    window.addEventListener('keyup', show_capture_dialog, false);
+    window.addEventListener('shake', dialogs.show_menu_dialog, false);
+    window.addEventListener('keyup', dialogs.show_menu_dialog, false);
     dialogs.show_welcome_dialog();
 
     animation.loop(function (timestamp) {
