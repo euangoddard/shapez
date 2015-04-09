@@ -1,9 +1,14 @@
-define(
-    ['animation', 'hsla', 'shapes', 'dialogs', 'utils', 'lib/FileSaver', 'lib/canvas-toBlob', 'lib/shake', 'lib/domReady!'],
-    function (animation, hsla, shapes, dialogs, utils, save_as) {
+import * as animation from 'animation';
+import * as hsla from 'hsla';
+import * as shapes from 'shapes';
+import * as dialogs from 'dialogs';
+import * as utils from 'utils';
+import * as save_as from 'lib/FileSaver';
+import * as toBlob from 'lib/canvas-toBlob';
+import * as shake from 'lib/shake';
+import * as domReady from 'lib/domReady';
 
-    'use strict';
-
+domReady(() => {
     var canvas = document.querySelector('canvas');
     var ctx = canvas.getContext('2d');
 
