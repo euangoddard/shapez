@@ -24,7 +24,7 @@
 
 
 
-var PrecacheConfig = [["/css/styles.css","b7e4c327dc39d8059ad146d95cb94836"],["/index.html","1bc24cc62a66b51c4971a7bb67dec7bc"],["/js/lib/require.js","e1484b205fdeccebe61a787fb342cba4"],["/js/main.js","5e9a124dc4c35bb5debde49e76554021"]];
+var PrecacheConfig = [["/css/styles.css","b7e4c327dc39d8059ad146d95cb94836"],["/index.html","1bc24cc62a66b51c4971a7bb67dec7bc"],["/js/lib/require.js","e1484b205fdeccebe61a787fb342cba4"],["/js/main.js","5e9a124dc4c35bb5debde49e76554021"],["/service-worker.js","14cf1155cc204565e9ab4a996b5f1ae9"]];
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
 
