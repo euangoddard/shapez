@@ -1,19 +1,16 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Shapez</title>
-    <link href="//fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
-    <!-- inject:css -->
-    <!-- endinject -->
-        
+    <link rel="stylesheet" href="./styles.scss">
+
 </head>
+
 <body>
     <canvas></canvas>
     <div id="dialog-mask"></div>
@@ -24,7 +21,8 @@
         <p>
             When you're done, shake your device (gently) and you'll see a menu allowing you to save your creation or clear the screen
         </p>
-        <p><strong>Careful!</strong> If you rotate your device the screen will clear</p>
+        <p>
+            <strong>Careful!</strong> If you rotate your device the screen will clear</p>
         <button class="btn" data-action="close" type="button">Start drawing</button>
     </div>
 
@@ -34,7 +32,8 @@
         <button class="btn" data-action="clear" type="button">Clear</button>
         <button class="btn" data-action="close" type="button">Cancel</button>
     </div>
+    <script src="./main.ts"></script>
 
-    <script src="/js/lib/require.js" data-main="/js/main.js"></script>
 </body>
+
 </html>
