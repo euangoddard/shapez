@@ -17,9 +17,9 @@
     "url": "https://github.com/euangoddard/shapez/issues"
   },
   "devDependencies": {
-    "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.3.1",
-    "typescript": "^2.6.2"
+    "node-sass": "^4.8.3",
+    "parcel-bundler": "^1.7.0",
+    "typescript": "^2.8.1"
   },
   "dependencies": {}
 }

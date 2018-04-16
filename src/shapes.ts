@@ -6,20 +6,22 @@ const RADIUS = {
 };
 
 export abstract class PolyShape {
-  protected x: number = 0;
-  protected y: number = 0;
-  protected radius = RADIUS.MIN;
-  protected angle = 0;
+  protected readonly x: number;
+  protected readonly y: number;
+  protected readonly radius: number;
+  protected readonly angle: number;
   protected abstract vertices: number;
+  protected abstract klass: typeof Polygon | typeof Polystar;
   private alpha = 1;
 
   static random(
     ctx: CanvasRenderingContext2D,
     colour: RGBAColour,
+    coordinates: Coordinates,
   ): Polygon | Polystar {
     let shape: typeof Polygon | typeof Polystar;
     let vertices: number;
-    const styleChoice = Math.random();
+    const styleChoice = 0.1; //Math.random();
     if (styleChoice < 0.5) {
       shape = Polygon;
       vertices = 3 + Math.round(Math.random() * 6);
@@ -27,24 +29,26 @@ export abstract class PolyShape {
       shape = Polystar;
       vertices = 4 + Math.round(Math.random() * 7);
     }
-    return new shape(ctx, colour, vertices);
+    return new shape(ctx, colour, coordinates, vertices);
   }
 
   constructor(
     protected ctx: CanvasRenderingContext2D,
     protected colour: RGBAColour,
-  ) {}
-  move(x: number, y: number): void {
-    if (this.x && this.y) {
-      const deltaX = this.x - x;
-      const deltaY = this.y - y;
-      const deltaR = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    coordinates: Coordinates,
+  ) {
+    this.x = coordinates.x;
+    this.y = coordinates.y;
+    this.radius = coordinates.radius;
+    this.angle = coordinates.angle;
+  }
 
-      this.radius = Math.min(Math.max(deltaR, RADIUS.MIN), RADIUS.MAX);
-      this.angle = Math.atan(deltaX / deltaY);
-    }
-    this.x = x;
-    this.y = y;
+  get isVisible(): boolean {
+    return this.alpha > 0.01;
+  }
+
+  clone(coordinates: Coordinates): Polygon | Polystar {
+    return new this.klass(this.ctx, this.colour, coordinates, this.vertices);
   }
 
   draw(): void {
@@ -74,25 +78,28 @@ export abstract class PolyShape {
   }
 
   private fade() {
-    this.alpha = this.alpha *= 0.99;
+    this.alpha = this.alpha *= 0.85;
   }
 
   protected abstract drawVertices(): void;
 
   private setStrokeStyles() {
-    this.ctx.strokeStyle = '#fff';
+    this.ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha})`;
     this.ctx.lineWidth = 3;
     this.ctx.lineCap = 'round';
   }
 }
 
 class Polygon extends PolyShape {
+  protected readonly klass = Polygon;
+
   constructor(
     ctx: CanvasRenderingContext2D,
     colour: RGBAColour,
+    coordinates: Coordinates,
     protected vertices: number,
   ) {
-    super(ctx, colour);
+    super(ctx, colour, coordinates);
   }
 
   protected drawVertices() {
@@ -112,14 +119,16 @@ class Polygon extends PolyShape {
 }
 
 class Polystar extends PolyShape {
-  protected vertices: number;
+  protected readonly klass = Polystar;
+  protected readonly vertices: number;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     colour: RGBAColour,
+    coordinates: Coordinates,
     vertices: number,
   ) {
-    super(ctx, colour);
+    super(ctx, colour, coordinates);
     this.vertices = vertices * 2;
   }
 
@@ -146,4 +155,31 @@ class Polystar extends PolyShape {
       }
     }
   }
+}
+
+export class Coordinates {
+  static initial(x: number, y: number): Coordinates {
+    return new Coordinates(x, y, RADIUS.MIN, 0);
+  }
+
+  static fromPrevious(
+    x: number,
+    y: number,
+    previous: Coordinates,
+  ): Coordinates {
+    const deltaX = previous.x - x;
+    const deltaY = previous.y - y;
+    const deltaR = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    const radius = Math.min(Math.max(deltaR, RADIUS.MIN), RADIUS.MAX);
+    const angle = Math.atan(deltaX / deltaY);
+    return new Coordinates(x, y, radius, angle);
+  }
+
+  constructor(
+    public x: number,
+    public y: number,
+    public radius: number,
+    public angle: number,
+  ) {}
 }

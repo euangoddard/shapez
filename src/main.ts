@@ -1,37 +1,31 @@
+import { Manager } from './manager';
 import { iter } from './utils';
 import { PolyShape } from './shapes';
-import { convertHSLAToRGBA } from './hsla';
+import { convertHSLAToRGBA, RGBAColour } from './hsla';
 
 (function() {
   const canvas = document.querySelector('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const manager = new Manager(ctx, window.innerWidth, window.innerHeight);
 
   function sizeCanvas() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     canvas.setAttribute('width', windowWidth.toString());
     canvas.setAttribute('height', windowHeight.toString());
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, windowWidth, windowHeight);
+    // ctx.fillStyle = '#000';
+    // ctx.fillRect(0, 0, windowWidth, windowHeight);
+    manager.updateScreenSize(windowWidth, windowHeight);
   }
   window.addEventListener('resize', sizeCanvas, false);
   sizeCanvas();
-
-  const shapesById: { [touchId: string]: PolyShape } = {};
 
   function handleTouchStart(event: TouchEvent) {
     event.preventDefault();
     var touches = event.changedTouches;
 
     iter(touches, touch => {
-      const currentTime = new Date().getTime();
-      var shape = PolyShape.random(
-        ctx,
-        convertHSLAToRGBA(currentTime % 360, 100, 50, 1),
-      );
-      shapesById[touch.identifier.toString()] = shape;
-      shape.move(touch.pageX, touch.pageY);
-      shape.draw();
+      manager.addNewShape(touch.identifier, touch.pageX, touch.pageY);
     });
   }
 
@@ -39,8 +33,7 @@ import { convertHSLAToRGBA } from './hsla';
     event.preventDefault();
     var touches = event.changedTouches;
     iter(touches, touch => {
-      const shape = shapesById[touch.identifier.toString()];
-      shape.move(touch.pageX, touch.pageY);
+      manager.cloneShape(touch.identifier, touch.pageX, touch.pageY);
     });
   }
 
@@ -48,7 +41,7 @@ import { convertHSLAToRGBA } from './hsla';
     event.preventDefault();
     var touches = event.changedTouches;
     iter(touches, touch => {
-      delete shapesById[touch.identifier];
+      // delete shapesById[touch.identifier];
     });
   }
 
@@ -57,6 +50,24 @@ import { convertHSLAToRGBA } from './hsla';
   canvas.addEventListener('touchcancel', handleTouchEnd, false);
   //   canvas.addEventListener('touchleave', handleTouchEnd, false);
   canvas.addEventListener('touchmove', handleTouchMove, false);
+
+  canvas.addEventListener(
+    'mousedown',
+    event => {
+      manager.addNewShape(-1, event.pageX, event.pageY);
+    },
+    false,
+  );
+  canvas.addEventListener(
+    'mousemove',
+    event => {
+      if (event.button === 0) {
+        manager.cloneShape(-1, event.pageX, event.pageY);
+      }
+    },
+    false,
+  );
+  canvas.addEventListener('mouseup', handleTouchEnd, false);
 
   //   var save_canvas = function() {
   //     canvas.toBlob(function(blob) {
@@ -98,13 +109,7 @@ import { convertHSLAToRGBA } from './hsla';
   function tick() {
     requestAnimationFrame(() => {
       tick();
-      for (const key in shapesById) {
-        if (shapesById.hasOwnProperty(key)) {
-          var shape = shapesById[key];
-          shape.draw();
-          //   console.log('drawing');
-        }
-      }
+      manager.drawAll();
     });
   }
   tick();
