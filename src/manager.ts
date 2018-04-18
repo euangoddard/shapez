@@ -30,6 +30,7 @@ export class Manager {
     const coordinates = Coordinates.fromPrevious(x, y, lastCoordinates);
     const shape = last(shapes).clone(coordinates);
     shapes.push(shape);
+    this.dataById[`${shapeId}`].lastCoordinates = coordinates;
   }
 
   updateScreenSize(width: number, height: number): void {
