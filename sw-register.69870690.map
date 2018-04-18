@@ -1,0 +1,1 @@
+{"version":3,"sources":["sw-register.ts"],"names":[],"mappings":";;;AAAA,IAAI,mBAAmB,SAAvB,EAAkC;AAChC,cAAU,aAAV,CAAwB,QAAxB,CAAiC,sCAAjC;AACD","file":"sw-register.69870690.map","sourcesContent":["if ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('./sw.js');\n}\n"]}
