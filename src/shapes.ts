@@ -10,7 +10,6 @@ export abstract class PolyShape {
   protected readonly y: number;
   protected readonly radius: number;
   protected readonly angle: number;
-  protected abstract vertices: number;
   protected abstract klass: typeof Polygon | typeof Polystar;
   private alpha = 1;
 
@@ -21,7 +20,7 @@ export abstract class PolyShape {
   ): Polygon | Polystar {
     let shape: typeof Polygon | typeof Polystar;
     let vertices: number;
-    const styleChoice = 0.1; //Math.random();
+    const styleChoice = Math.random();
     if (styleChoice < 0.5) {
       shape = Polygon;
       vertices = 3 + Math.round(Math.random() * 6);
@@ -29,12 +28,13 @@ export abstract class PolyShape {
       shape = Polystar;
       vertices = 4 + Math.round(Math.random() * 7);
     }
-    return new shape(ctx, colour, coordinates, vertices);
+    return new shape(ctx, colour, vertices, coordinates);
   }
 
   constructor(
-    protected ctx: CanvasRenderingContext2D,
-    protected colour: RGBAColour,
+    protected readonly ctx: CanvasRenderingContext2D,
+    protected readonly colour: RGBAColour,
+    protected readonly vertices: number,
     coordinates: Coordinates,
   ) {
     this.x = coordinates.x;
@@ -48,7 +48,7 @@ export abstract class PolyShape {
   }
 
   clone(coordinates: Coordinates): Polygon | Polystar {
-    return new this.klass(this.ctx, this.colour, coordinates, this.vertices);
+    return new this.klass(this.ctx, this.colour, this.vertices, coordinates);
   }
 
   draw(): void {
@@ -93,15 +93,6 @@ export abstract class PolyShape {
 class Polygon extends PolyShape {
   protected readonly klass = Polygon;
 
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    colour: RGBAColour,
-    coordinates: Coordinates,
-    protected vertices: number,
-  ) {
-    super(ctx, colour, coordinates);
-  }
-
   protected drawVertices() {
     var x, y, angle;
     for (let i = 0; i < this.vertices; i += 1) {
@@ -120,25 +111,15 @@ class Polygon extends PolyShape {
 
 class Polystar extends PolyShape {
   protected readonly klass = Polystar;
-  protected readonly vertices: number;
-
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    colour: RGBAColour,
-    coordinates: Coordinates,
-    vertices: number,
-  ) {
-    super(ctx, colour, coordinates);
-    this.vertices = vertices * 2;
-  }
 
   protected drawVertices(): void {
+    const points = this.vertices * 2;
     let x: number;
     let y: number;
     let radius: number;
     let angle: number;
-    for (let i = 0; i < this.vertices; i += 1) {
-      angle = this.angle + 2 * Math.PI * i / this.vertices;
+    for (let i = 0; i < points; i += 1) {
+      angle = this.angle + 2 * Math.PI * i / points;
       if (i % 2) {
         radius = 0.6 * this.radius;
       } else {
