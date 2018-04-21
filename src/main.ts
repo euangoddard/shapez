@@ -26,22 +26,22 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
   canvas.addEventListener(
     'touchstart',
     (event: TouchEvent) => {
-      // event.preventDefault();
+      event.preventDefault();
       iter(event.changedTouches, touch => {
         manager.addNewShape(touch.identifier, touch.pageX, touch.pageY);
       });
     },
-    PASSIVE_NO_CAPTURE_FLAGS,
+    false,
   );
   canvas.addEventListener(
     'touchmove',
     (event: TouchEvent) => {
-      // event.preventDefault();
+      event.preventDefault();
       iter(event.changedTouches, touch => {
         manager.cloneShape(touch.identifier, touch.pageX, touch.pageY);
       });
     },
-    PASSIVE_NO_CAPTURE_FLAGS,
+    false,
   );
 
   let isMouseDown = false;
