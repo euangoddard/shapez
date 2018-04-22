@@ -13,25 +13,9 @@
 </head>
 
 <body>
-    <canvas></canvas>
-    <div id="dialog-mask"></div>
-    <div class="dialog" id="welcome">
-        <div class="title">Welcome to shapez</div>
-        <p>Use your finger or fingers to draw shapes on the screen.</p>
-        <p>The faster you move, the bigger the shapes will be.</p>
-        <p>
-            When you're done, shake your device (gently) and you'll see a menu allowing you to save your creation or clear the screen
-        </p>
-        <p>
-            <strong>Careful!</strong> If you rotate your device the screen will clear</p>
-        <button class="btn" data-action="close" type="button">Start drawing</button>
-    </div>
-
-    <div class="dialog" id="menu">
-        <div class="title">Menu</div>
-        <button class="btn" data-action="save" type="button">Save</button>
-        <button class="btn" data-action="clear" type="button">Clear</button>
-        <button class="btn" data-action="close" type="button">Cancel</button>
+    <canvas class="shapez"></canvas>
+    <div class="info-wrapper">
+        <div class="info-text">Use your finger or cursor to draw shapes</div>
     </div>
     <script src="./main.ts"></script>
     <script src="./sw-register.ts"></script>

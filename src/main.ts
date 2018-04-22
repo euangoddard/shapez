@@ -27,6 +27,7 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
     'touchstart',
     (event: TouchEvent) => {
       event.preventDefault();
+      removeInfo();
       iter(event.changedTouches, touch => {
         manager.addNewShape(touch.identifier, touch.pageX, touch.pageY);
       });
@@ -48,6 +49,7 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
   canvas.addEventListener(
     'mousedown',
     event => {
+      removeInfo();
       isMouseDown = true;
       manager.addNewShape(-1, event.pageX, event.pageY);
     },
@@ -74,6 +76,11 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
     () => (isMouseDown = false),
     PASSIVE_NO_CAPTURE_FLAGS,
   );
+
+  function removeInfo() {
+    const text = document.querySelector('.info-text') as HTMLElement;
+    text.classList.add('faded');
+  }
 
   function tick() {
     requestAnimationFrame(() => {
