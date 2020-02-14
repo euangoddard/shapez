@@ -14,7 +14,7 @@ export abstract class PolyShape {
   private alpha = 1;
 
   static random(
-    ctx: CanvasRenderingContext2D,
+    ctx: OffscreenCanvasRenderingContext2D,
     colour: RGBAColour,
     coordinates: Coordinates,
   ): Polygon | Polystar {
@@ -32,7 +32,7 @@ export abstract class PolyShape {
   }
 
   constructor(
-    protected readonly ctx: CanvasRenderingContext2D,
+    protected readonly ctx: OffscreenCanvasRenderingContext2D,
     protected readonly colour: RGBAColour,
     protected readonly vertices: number,
     coordinates: Coordinates,
@@ -68,9 +68,7 @@ export abstract class PolyShape {
 
   private get fillStyle(): string {
     const alpha = this.colour.a * this.alpha;
-    return `rgba(${this.colour.r}, ${this.colour.g}, ${
-      this.colour.b
-    } , ${alpha})`;
+    return `rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b} , ${alpha})`;
   }
 
   get isFadedOut(): boolean {
@@ -96,7 +94,7 @@ class Polygon extends PolyShape {
   protected drawVertices() {
     var x, y, angle;
     for (let i = 0; i < this.vertices; i += 1) {
-      angle = this.angle + 2 * Math.PI * i / this.vertices;
+      angle = this.angle + (2 * Math.PI * i) / this.vertices;
       x = this.x + this.radius * Math.cos(angle);
       y = this.y + this.radius * Math.sin(angle);
 
@@ -119,7 +117,7 @@ class Polystar extends PolyShape {
     let radius: number;
     let angle: number;
     for (let i = 0; i < points; i += 1) {
-      angle = this.angle + 2 * Math.PI * i / points;
+      angle = this.angle + (2 * Math.PI * i) / points;
       if (i % 2) {
         radius = 0.6 * this.radius;
       } else {
@@ -143,11 +141,7 @@ export class Coordinates {
     return new Coordinates(x, y, RADIUS.MIN, 0);
   }
 
-  static fromPrevious(
-    x: number,
-    y: number,
-    previous: Coordinates,
-  ): Coordinates {
+  static fromPrevious(x: number, y: number, previous: Coordinates): Coordinates {
     const deltaX = previous.x - x;
     const deltaY = previous.y - y;
     const deltaR = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -157,10 +151,5 @@ export class Coordinates {
     return new Coordinates(x, y, radius, angle);
   }
 
-  constructor(
-    public x: number,
-    public y: number,
-    public radius: number,
-    public angle: number,
-  ) {}
+  constructor(public x: number, public y: number, public radius: number, public angle: number) {}
 }

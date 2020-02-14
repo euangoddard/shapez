@@ -5,12 +5,7 @@ export interface RGBAColour {
   a: number;
 }
 
-export function convertHSLAToRGBA(
-  h: number,
-  s: number,
-  l: number,
-  a: number,
-): RGBAColour {
+export function convertHSLAToRGBA(h: number, s: number, l: number, a: number): RGBAColour {
   let rgba: RGBAColour;
   h = convertToPercent(Math.round(h) % 360, 360);
   s = convertToPercent(Math.round(s) % 101, 100);

@@ -5,7 +5,7 @@ export class Manager {
   private readonly dataById: { [id: string]: ManagedItem } = {};
 
   constructor(
-    private ctx: CanvasRenderingContext2D,
+    private ctx: OffscreenCanvasRenderingContext2D,
     private width: number,
     private height: number,
   ) {}

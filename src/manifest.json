@@ -1,9 +1,0 @@
-{
-  "name": "Shapez",
-  "short_name": "Shapez",
-  "theme_color": "#000a12",
-  "background_color": "#000000",
-  "display": "browser",
-  "scope": "/",
-  "start_url": "/"
-}

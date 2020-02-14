@@ -1,7 +1,5 @@
-import { Manager } from './manager';
 import { iter } from './utils';
-import { PolyShape } from './shapes';
-import { convertHSLAToRGBA, RGBAColour } from './hsla';
+import { WorkerClient } from './worker.client';
 
 const PASSIVE_NO_CAPTURE_FLAGS = {
   capture: false,
@@ -9,16 +7,12 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
 };
 
 (function() {
+  const workerClient = new WorkerClient();
   const canvas = document.querySelector('canvas') as HTMLCanvasElement;
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-  const manager = new Manager(ctx, window.innerWidth, window.innerHeight);
+  workerClient.initializeCanvas(canvas, window.innerWidth, window.innerHeight);
 
   function sizeCanvas() {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    canvas.setAttribute('width', windowWidth.toString());
-    canvas.setAttribute('height', windowHeight.toString());
-    manager.updateScreenSize(windowWidth, windowHeight);
+    workerClient.updateSize(window.innerWidth, window.innerHeight);
   }
   window.addEventListener('resize', sizeCanvas, PASSIVE_NO_CAPTURE_FLAGS);
   sizeCanvas();
@@ -29,7 +23,7 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
       event.preventDefault();
       removeInfo();
       iter(event.changedTouches, touch => {
-        manager.addNewShape(touch.identifier, touch.pageX, touch.pageY);
+        workerClient.addShape(touch.identifier, touch.pageX, touch.pageY);
       });
     },
     false,
@@ -39,7 +33,7 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
     (event: TouchEvent) => {
       event.preventDefault();
       iter(event.changedTouches, touch => {
-        manager.cloneShape(touch.identifier, touch.pageX, touch.pageY);
+        workerClient.cloneShape(touch.identifier, touch.pageX, touch.pageY);
       });
     },
     false,
@@ -51,7 +45,7 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
     event => {
       removeInfo();
       isMouseDown = true;
-      manager.addNewShape(-1, event.pageX, event.pageY);
+      workerClient.addShape(-1, event.pageX, event.pageY);
     },
     PASSIVE_NO_CAPTURE_FLAGS,
   );
@@ -59,34 +53,18 @@ const PASSIVE_NO_CAPTURE_FLAGS = {
     'mousemove',
     event => {
       if (isMouseDown) {
-        manager.cloneShape(-1, event.pageX, event.pageY);
+        workerClient.cloneShape(-1, event.pageX, event.pageY);
       }
     },
     PASSIVE_NO_CAPTURE_FLAGS,
   );
 
-  canvas.addEventListener(
-    'mouseup',
-    () => (isMouseDown = false),
-    PASSIVE_NO_CAPTURE_FLAGS,
-  );
+  canvas.addEventListener('mouseup', () => (isMouseDown = false), PASSIVE_NO_CAPTURE_FLAGS);
 
-  canvas.addEventListener(
-    'mouseleave',
-    () => (isMouseDown = false),
-    PASSIVE_NO_CAPTURE_FLAGS,
-  );
+  canvas.addEventListener('mouseleave', () => (isMouseDown = false), PASSIVE_NO_CAPTURE_FLAGS);
 
   function removeInfo() {
     const text = document.querySelector('.info-text') as HTMLElement;
     text.classList.add('faded');
   }
-
-  function tick() {
-    requestAnimationFrame(() => {
-      tick();
-      manager.drawAll();
-    });
-  }
-  tick();
 })();
