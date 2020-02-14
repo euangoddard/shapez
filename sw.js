@@ -1,25 +1,23 @@
-importScripts(
-  'https://storage.googleapis.com/workbox-cdn/releases/3.1.0/workbox-sw.js',
-);
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.1.0/workbox-sw.js');
 workbox.precaching.precacheAndRoute([
   {
     "url": "index.html",
-    "revision": "832224e436f3c618c865e4b799e71154"
+    "revision": "1bec3f961daf385a0d3f52c14c8f188f"
   },
   {
-    "url": "main.fceb9ccb.js",
-    "revision": "62875c837a175c9f51f8613070109751"
+    "url": "main.4ecd54e5.js",
+    "revision": "2ea2874ff8ad972ab3c11c7b3254bba3"
   },
   {
-    "url": "manifest.130416d0.js",
-    "revision": "1fe3e218d86527898c0f891901c51593"
+    "url": "styles.173b00b6.css",
+    "revision": "8fde0e6bdc0221bbbbae387dcc3369ad"
   },
   {
-    "url": "styles.be6ba454.css",
-    "revision": "f2b493a934f385107fa5ae33e46319d2"
+    "url": "sw-register.35d92dfc.js",
+    "revision": "a01350a0a766d8bf1b48a73b41fe410e"
   },
   {
-    "url": "sw-register.69870690.js",
-    "revision": "e6d13b700c033dd768d4092d14c3d7fd"
+    "url": "worker.f23e6e88.js",
+    "revision": "a7899ef6ab5d00e97a30f62a3debdfc8"
   }
 ]);
