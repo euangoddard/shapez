@@ -76,7 +76,7 @@ export abstract class PolyShape {
   }
 
   private fade() {
-    this.alpha = this.alpha *= 0.85;
+    this.alpha = this.alpha *= 0.90;
   }
 
   protected abstract drawVertices(): void;
