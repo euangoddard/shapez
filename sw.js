@@ -2,7 +2,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.1.0/workbox
 workbox.precaching.precacheAndRoute([
   {
     "url": "index.html",
-    "revision": "1bec3f961daf385a0d3f52c14c8f188f"
+    "revision": "1995d63ed5e7c76ce366e381a451c729"
   },
   {
     "url": "main.4ecd54e5.js",
