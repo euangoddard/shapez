@@ -27,7 +27,9 @@
     "src": "^1.1.2"
   },
   "browserslist": [
-    "last 2 versions",
-    "not IE 9-11"
+    "last 2 chrome versions",
+    "last 2 firefox versions",
+    "last 2 safari versions",
+    "last 2 ios_saf versions"
   ]
 }
