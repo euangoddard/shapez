@@ -5,7 +5,7 @@
   "scripts": {
     "start": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html -d dist",
-    "deploy": "rm -rf dist && npm run build && workbox injectManifest workbox-config.js && echo shapez.euans.space > dist/CNAME && gh-pages -d dist"
+    "deploy": "rm -rf dist && NODE_ENV=prod npm run build && workbox injectManifest workbox-config.js && echo shapez.euans.space > dist/CNAME && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "url": "https://github.com/euangoddard/shapez/issues"
   },
   "devDependencies": {
+    "@types/node": "^13.7.4",
     "gh-pages": "^1.2.0",
     "node-sass": "^4.13.1",
     "parcel-bundler": "^1.12.4",
