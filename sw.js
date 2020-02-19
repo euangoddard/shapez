@@ -22,7 +22,7 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "index.html",
-    "revision": "457627dce8a30619d5ad259f3d5f70f5"
+    "revision": "1b97f27a595e4af2e66fad0fb8a57756"
   },
   {
     "url": "main.01a9b15c.js",
@@ -37,8 +37,8 @@ workbox.precaching.precacheAndRoute([
     "revision": "8fde0e6bdc0221bbbbae387dcc3369ad"
   },
   {
-    "url": "sw-register.35d92dfc.js",
-    "revision": "a01350a0a766d8bf1b48a73b41fe410e"
+    "url": "sw-register.9a1d39be.js",
+    "revision": "c3f71b4a60c75a79e95736f01f583ae0"
   },
   {
     "url": "worker.bd51d5ea.js",
