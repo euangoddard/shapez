@@ -4,7 +4,7 @@ export class WorkerClient {
   private readonly worker: Worker;
 
   constructor() {
-    this.worker = new Worker('./worker.ts');
+    this.worker = new Worker(new URL('./worker.ts', import.meta.url), {type: 'module'});
   }
 
   initializeCanvas(canvas: HTMLCanvasElement, width: number, height: number): void {
