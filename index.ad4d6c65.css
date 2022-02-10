@@ -1,0 +1,2 @@
+body,html{height:100%;overflow:hidden;width:100%}body{background:#000;display:grid;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;margin:0;padding:0}body>*{grid-column:1/1;grid-row:1/1}.info-wrapper{align-items:center;display:flex;justify-content:center;z-index:1}.info-text{color:#cfd8dc;font-size:10vmin;line-height:1.5;padding:5rem;text-align:center;transition:opacity .5s ease-out}.info-text.faded{opacity:0}.shapez{z-index:2}
+/*# sourceMappingURL=index.ad4d6c65.css.map */

@@ -1,1 +1,0 @@
-{"version":3,"sources":["sw-register.ts"],"names":[],"mappings":";AAEC,aAFuB,kBAAmB,WACzC,UAAU,cAAc,SAAS","file":"sw-register.9a1d39be.js","sourceRoot":"../src","sourcesContent":["if (process.env.PROD && 'serviceWorker' in navigator) {\n  navigator.serviceWorker.register('./sw.js');\n}\n"]}
