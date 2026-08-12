@@ -1,1 +1,21 @@
-{"name":"Shapez","short_name":"Shapez","theme_color":"#000a12","background_color":"#000000","display":"standalone","scope":"/","start_url":"/","icons":[{"src":"/android-chrome-192x192.58bbe927.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.9bdb3030.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "Shapez",
+  "short_name": "Shapez",
+  "theme_color": "#000a12",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
