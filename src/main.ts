@@ -1,3 +1,4 @@
+import './styles.css';
 import { iter } from './utils';
 import { WorkerClient } from './worker.client';
 

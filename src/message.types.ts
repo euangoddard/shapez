@@ -1,4 +1,4 @@
-export const enum WorkerMessageTypes {
+export enum WorkerMessageTypes {
   Init,
   UpdateSize,
   AddShape,

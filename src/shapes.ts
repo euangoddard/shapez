@@ -1,4 +1,4 @@
-import { RGBAColour } from './hsla';
+import type { RGBAColour } from './hsla';
 
 const RADIUS = {
   MIN: 10,

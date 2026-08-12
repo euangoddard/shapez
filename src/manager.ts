@@ -1,5 +1,5 @@
-import { PolyShape, Coordinates } from './shapes';
-import { convertHSLAToRGBA, RGBAColour } from './hsla';
+import { Coordinates, PolyShape } from './shapes';
+import { convertHSLAToRGBA } from './hsla';
 
 export class Manager {
   private readonly dataById: { [id: string]: ManagedItem } = {};

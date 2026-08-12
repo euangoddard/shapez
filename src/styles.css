@@ -1,0 +1,58 @@
+:root {
+  --colour-background: #000;
+  --colour-info-text: #cfd8dc;
+
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
+    Cantarell, 'Helvetica Neue', sans-serif;
+
+  --info-fade-duration: 0.5s;
+
+  /* Everything is stacked in a single grid cell, so these order the layers. */
+  --layer-info: 1;
+  --layer-canvas: 2;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--colour-background);
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-stack);
+
+  display: grid;
+
+  & > * {
+    grid-row: 1/1;
+    grid-column: 1/1;
+  }
+}
+
+.info-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--layer-info);
+}
+
+.info-text {
+  color: var(--colour-info-text);
+  font-size: 10vmin;
+  text-align: center;
+  line-height: 1.5;
+  padding: 5rem;
+  transition: opacity var(--info-fade-duration) ease-out;
+
+  &.faded {
+    opacity: 0;
+  }
+}
+
+.shapez {
+  z-index: var(--layer-canvas);
+}

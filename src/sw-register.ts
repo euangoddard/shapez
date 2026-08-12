@@ -1,3 +1,3 @@
-if (process.env.PROD && 'serviceWorker' in navigator) {
-  navigator.serviceWorker.register(new URL('./sw.js', import.meta.url));
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
 }
