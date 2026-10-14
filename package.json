@@ -21,10 +21,10 @@
     "url": "https://github.com/euangoddard/shapez/issues"
   },
   "devDependencies": {
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.6.5",
     "gh-pages": "^6.3.0",
     "typescript": "^7.0.2",
-    "vite": "^8.2.1",
+    "vite": "^8.3.4",
     "workbox-cli": "^7.4.1"
   },
   "browserslist": [
